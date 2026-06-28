@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파닥파닥 주간 탁구 뉴스 Vol.06</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Black+Han+Sans&display=swap" rel="stylesheet">
+<style>
+:root {
+--navy:#0d1f4e; --navy2:#1a3070; --red:#d63031; --gold:#f0a500;
+--sky:#e8eef9; --line:#d1d9ec; --text:#1c2340; --muted:#6b7692; --white:#ffffff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans KR',sans-serif; background:#c9d4e8; color:var(--text); padding:28px 10px 48px; line-height:1.6; }
+.page { max-width:800px; margin:0 auto; }
+.header { background:var(--navy); border-radius:18px 18px 0 0; overflow:hidden; }
+.ribbon { background:var(--red); display:flex; justify-content:space-between; padding:7px 28px; font-size:11px; color:rgba(255,255,255,.85); letter-spacing:.1em; font-weight:500; }
+.hero { padding:38px 40px 30px; position:relative; overflow:hidden; }
+.hero::after { content:'🏓'; position:absolute; right:-18px; top:-10px; font-size:200px; opacity:.05; transform:rotate(-20deg); }
+.pub-label { font-size:11px; color:rgba(255,255,255,.45); letter-spacing:.18em; text-transform:uppercase; margin-bottom:10px; }
+.logo { font-family:'Black Han Sans',sans-serif; font-size:64px; color:#fff; line-height:1; }
+.logo em { color:var(--gold); font-style:normal; }
+.tagline { font-family:'Noto Serif KR',serif; color:rgba(255,255,255,.6); font-size:13.5px; margin-top:10px; letter-spacing:.06em; }
+.hero-foot { margin-top:22px; display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+.badge { padding:5px 16px; border-radius:20px; font-size:12px; font-weight:700; }
+.badge-vol { background:var(--gold); color:var(--navy); }
+.badge-date { background:rgba(255,255,255,.12); color:rgba(255,255,255,.7); }
+.badge-week { background:rgba(255,255,255,.08); color:rgba(255,255,255,.55); font-size:11px; }
+.nav-tabs { display:grid; grid-template-columns:repeat(4,1fr); background:var(--gold); }
+.tab { text-align:center; padding:12px 4px; font-size:11.5px; font-weight:700; color:var(--navy); border-right:1px solid rgba(13,31,78,.18); }
+.tab:last-child { border-right:none; }
+.tab-n { display:block; font-family:'Black Han Sans',sans-serif; font-size:22px; line-height:1; margin-bottom:2px; }
+.body { background:#fff; }
+.section { padding:36px 38px 32px; border-bottom:2px solid var(--line); }
+.section:last-child { border-bottom:none; }
+.sec-head { display:flex; align-items:center; gap:14px; margin-bottom:26px; padding-bottom:14px; border-bottom:2.5px solid var(--navy); }
+.sec-num { width:38px; height:38px; border-radius:9px; background:var(--navy); display:flex; align-items:center; justify-content:center; font-family:'Black Han Sans',sans-serif; font-size:20px; color:#fff; flex-shrink:0; }
+.sec-title { font-family:'Noto Serif KR',serif; font-size:20px; font-weight:700; color:var(--navy); }
+.sec-icon { margin-left:auto; font-size:28px; }
+.sec-period { margin-left:auto; font-size:11px; color:var(--muted); font-weight:500; white-space:nowrap; }
+.card { background:var(--sky); border-radius:12px; padding:20px 22px; margin-bottom:16px; border-left:4px solid var(--navy2); position:relative; }
+.card:last-child { margin-bottom:0; }
+.card.hot { border-left-color:var(--red); background:#fff4f4; }
+.card.gold-card { border-left-color:var(--gold); background:#fffbf0; }
+.pick-badge { position:absolute; top:14px; right:16px; background:var(--red); color:#fff; font-size:10px; font-weight:700; padding:3px 9px; border-radius:10px; }
+.gold-pick { background:var(--gold); color:var(--navy); }
+.tag { display:inline-block; border-radius:4px; font-size:10.5px; font-weight:700; padding:2px 9px; margin-bottom:8px; }
+.tag-navy { background:var(--navy); color:#fff; }
+.tag-red { background:var(--red); color:#fff; }
+.tag-gold { background:var(--gold); color:var(--navy); }
+.tag-gray { background:#9aa3be; color:#fff; }
+.card-date { font-size:11px; color:var(--muted); font-weight:500; margin-bottom:6px; }
+.card-title { font-family:'Noto Serif KR',serif; font-size:16.5px; font-weight:700; color:var(--navy); line-height:1.45; margin-bottom:9px; }
+.card-body { font-size:13.5px; color:#374561; line-height:1.8; }
+.card-body strong { color:var(--navy); font-weight:700; }
+.card-div { height:1px; background:var(--line); margin:14px 0; }
+.chips { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+.chip { background:#fff; border:2px solid var(--navy2); border-radius:20px; padding:5px 14px; font-size:12.5px; font-weight:700; color:var(--navy2); }
+.chip.win { border-color:var(--red); color:var(--red); background:#fff4f4; }
+.hl { background:linear-gradient(135deg,#fff8df,#fffef5); border:1.5px solid var(--gold); border-radius:10px; padding:13px 17px; margin-top:14px; font-size:13px; color:#5a4800; line-height:1.75; }
+.hl strong { color:#8a6000; }
+.tech-box { background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%); border-radius:14px; padding:26px 28px; color:#fff; margin-bottom:16px; }
+.tech-term { font-family:'Black Han Sans',sans-serif; font-size:36px; color:var(--gold); margin-bottom:3px; }
+.tech-eng { font-size:13px; color:rgba(255,255,255,.5); margin-bottom:16px; letter-spacing:.1em; }
+.tech-body { font-size:13.5px; color:rgba(255,255,255,.88); line-height:1.85; }
+.tech-tip { background:rgba(240,165,0,.14); border-left:3px solid var(--gold); border-radius:0 8px 8px 0; padding:12px 16px; margin-top:12px; font-size:13px; color:rgba(255,255,255,.85); line-height:1.75; }
+.tech-tip strong { color:var(--gold); }
+.diagram { background:var(--sky); border-radius:10px; padding:20px 16px; margin-top:14px; text-align:center; }
+.diagram-note { font-size:12px; color:var(--muted); margin-top:10px; }
+.series-badge { display:inline-flex; align-items:center; gap:6px; background:var(--navy); color:var(--gold); font-size:11px; font-weight:700; padding:4px 12px; border-radius:20px; margin-bottom:18px; }
+.week-label { background:var(--navy); color:var(--gold); font-family:'Black Han Sans',sans-serif; font-size:13px; padding:8px 16px; border-radius:8px; display:inline-block; margin-bottom:18px; }
+.sch-grid { display:grid; gap:12px; }
+.sch-item { display:grid; grid-template-columns:80px 1fr; gap:14px; align-items:start; background:var(--sky); border-radius:10px; padding:14px 16px; border-left:4px solid var(--line); }
+.sch-item.dom { border-left-color:var(--navy2); }
+.sch-item.intl { border-left-color:var(--red); }
+.sch-item.special { border-left-color:var(--gold); background:#fffbf0; }
+.sch-date { text-align:center; background:#fff; border-radius:8px; padding:8px 4px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+.sch-month { font-size:10px; color:var(--muted); font-weight:700; letter-spacing:.1em; }
+.sch-day { font-family:'Black Han Sans',sans-serif; font-size:28px; color:var(--navy); line-height:1; }
+.sch-dow { font-size:10px; color:var(--muted); margin-top:2px; }
+.sch-name { font-weight:700; font-size:14px; color:var(--navy); margin-bottom:4px; }
+.sch-info { font-size:12.5px; color:var(--muted); line-height:1.65; }
+.footer { background:var(--navy); border-radius:0 0 18px 18px; padding:22px 38px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+.footer-logo { font-family:'Black Han Sans',sans-serif; font-size:24px; color:var(--gold); }
+.footer-sub { font-size:11px; color:rgba(255,255,255,.4); margin-top:3px; }
+.footer-info { text-align:right; font-size:11.5px; color:rgba(255,255,255,.45); line-height:1.9; }
+
+
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ===== 헤더 ===== -->
+<div class="header">
+  <div class="ribbon">
+    <span>한전 파주지사 탁구동호회 · 파닥파닥</span>
+    <span>매주 월요일 발행</span>
+  </div>
+  <div class="hero">
+    <div class="pub-label">Korea Table Tennis Weekly Newsletter</div>
+    <div class="logo">파<em>닥</em>파<em>닥</em></div>
+    <div class="tagline">국내외 탁구 소식을 한 눈에 — 동호인과 함께 성장하는 탁구 미디어</div>
+    <div class="hero-foot">
+      <span class="badge badge-vol">VOL. 06</span>
+      <span class="badge badge-date">기준일: 2026.06.29 (월)</span>
+      <span class="badge badge-week">취재 기간: 2026.06.22 (월) ~ 06.28 (일)</span>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <div class="tab"><span class="tab-n">1</span>국내 이슈</div>
+    <div class="tab"><span class="tab-n">2</span>해외 이슈</div>
+    <div class="tab"><span class="tab-n">3</span>기술 용어</div>
+    <div class="tab"><span class="tab-n">4</span>주요 일정</div>
+  </div>
+</div>
+
+<!-- ===== 본문 ===== -->
+<div class="body">
+
+  <!-- 1장: 국내 이슈 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-num">1</div>
+      <div class="sec-title">국내 탁구 이슈</div>
+      <div class="sec-icon">🇰🇷</div>
+    </div>
+
+    <div class="card hot">
+      <span class="pick-badge">🔥 이주의 핫뉴스</span>
+      <div class="tag tag-red">WTT 미국 스매시 개막</div>
+      <div class="card-date">2026.06.26~28 · 미국 캘리포니아 온타리오</div>
+      <div class="card-title">신유빈·임종훈, WTT 미국 스매시 본선 진입 — 왕추친·쑨잉샤와 맞대결 예고</div>
+      <div class="card-body">
+        지난 26일 캘리포니아 온타리오 컨벤션센터에서 <strong>WTT 미국 스매시 2026</strong> 예선이 시작됐고, 28일부터 본선 주 대진이 본격적으로 펼쳐졌습니다. WTT 최상위 등급인 그랜드 스매시로, 단식 우승자에게 ITTF 세계 랭킹 포인트 2,000점이 주어지는 이번 대회는 7월 5일 결승까지 이어집니다.
+        <div class="card-div"></div>
+        혼합 복식에서 신유빈·임종훈 조는 세계 랭킹 1번 시드로 출전 중이며, 7월 3일 혼합 복식 결승에서는 <strong>왕추친·쑨잉샤(중국) 조</strong>와 맞붙을 가능성이 높습니다. 특히 이번 대회가 2028 LA 올림픽 테스트 이벤트 무대라는 점에서 한국 팬들의 관심이 집중되고 있습니다.
+      </div>
+    </div>
+
+    <div class="card gold-card">
+      <span class="pick-badge gold-pick">⭐ 화제</span>
+      <div class="tag tag-gold">대표팀 소식</div>
+      <div class="card-date">2026.06.22~28</div>
+      <div class="card-title">신유빈, 아이치-나고야 아시안게임 D-85 — 단식 세계 10위권 재진입 가시권</div>
+      <div class="card-body">
+        류블랴나 혼합복식 우승(임종훈·신유빈)과 미국 스매시 본선 진입까지, 신유빈의 2026시즌 상승세가 뚜렷합니다. 현재 여자 단식 세계 랭킹 12위인 신유빈은 미국 스매시에서 좋은 성적을 거둘 경우 10위권 재진입이 가능한 상황입니다.
+        <div class="card-div"></div>
+        9월 20일 개막하는 아이치-나고야 아시안게임이 이제 85일 앞으로 다가왔습니다. 혼합 복식 세계 1위 신유빈·임종훈 조의 아시안게임 금메달 가능성은 어느 때보다 높다는 평가입니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag tag-navy">생활체육</div>
+      <div class="card-date">2026.06.22~28</div>
+      <div class="card-title">탁구 한국 대표팀, 2028 LA 올림픽 무대 먼저 밟다</div>
+      <div class="card-body">
+        이번 WTT 미국 스매시가 열리는 온타리오 컨벤션센터는 2028 LA 올림픽 탁구 경기 공식 테스트 이벤트 무대입니다. 한국 대표팀이 2년 뒤 올림픽이 열릴 같은 코트에서 먼저 경기를 치른다는 점에서, 분위기 파악과 적응에도 중요한 대회입니다.
+        <div class="card-div"></div>
+        WTT 측은 "이번 미국 스매시는 2028 LA 올림픽을 향한 전 세계 탁구의 본격적인 준비 무대"라며 대회의 의미를 강조했습니다. 탁구가 LA에 다가서고 있습니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag tag-gray">국내 동향</div>
+      <div class="card-date">2026.06.22~28</div>
+      <div class="card-title">파주지사 탁우회 모임 D-15 — 7.14(화) 2층 강당 행사 준비 중</div>
+      <div class="card-body">
+        파주지사 탁우회의 <strong>2026 상반기 모임</strong>이 2주 후인 7월 14일(화) 2층 강당에서 열릴 예정입니다. 행사 세부 계획은 추후 별도로 공지될 예정이며, 파닥파닥 회원 여러분의 많은 참여를 기다립니다.
+        <div class="card-div"></div>
+        점심시간 친목 탁구와 함께, 탁우회 모임으로 동료들과의 친목을 더욱 다지는 기회가 되길 바랍니다.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 2장: 해외 이슈 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-num">2</div>
+      <div class="sec-title">해외 탁구 이슈</div>
+      <div class="sec-icon">🌍</div>
+    </div>
+
+    <div class="card hot">
+      <span class="pick-badge">🔥 이주의 핫뉴스</span>
+      <div class="tag tag-red">WTT 미국 스매시 2026</div>
+      <div class="card-date">2026.06.26 개막 · 캘리포니아 온타리오</div>
+      <div class="card-title">왕추친·쑨잉샤, 미국 스매시 첫 혼복 조 구성 — 2028 올림픽 점검 무대</div>
+      <div class="card-body">
+        이번 대회의 최대 관심사 중 하나는 <strong>왕추친·쑨잉샤(중국) 조</strong>의 2026시즌 혼합 복식 첫 출격입니다. 올림픽 금메달리스트이자 혼합 복식 6회 그랜드 스매시 우승 경력을 가진 두 선수가 같은 조로 출전해, 한국의 신유빈·임종훈 조와의 맞대결이 기대됩니다.
+        <div class="card-div"></div>
+        대회는 남녀 단식·복식·혼합 복식 5개 종목으로 진행되며, <strong>7월 3일 혼합 복식 결승</strong>과 <strong>7월 5일 단식 결승</strong>이 하이라이트입니다. 세계 랭킹 1위 왕추친, 2위 하리모토 도모카즈(일본), 올림픽 메달리스트 우고 칼데라노(브라질) 등 세계 최정상급 선수들이 총출동했습니다.
+      </div>
+    </div>
+
+    <div class="card gold-card">
+      <span class="pick-badge gold-pick">⭐ 화제</span>
+      <div class="tag tag-gold">미국 탁구</div>
+      <div class="card-date">2026.06.26~28</div>
+      <div class="card-title">미국 홈 관중 뜨거운 호응 — 카낙 자, 미국 대표 남자 1번으로 출격</div>
+      <div class="card-body">
+        LA에서 차로 1시간 거리인 온타리오에서 열리는 이번 대회는 미국 탁구 역사상 최고 수준의 선수들이 집결한 대회로 평가받습니다. 미국 남자 단식 세계 25위 <strong>카낙 자(Kanak Jha)</strong>가 홈 대표로 출격하고, 여자부에서는 <strong>에이미 왕·릴리 장</strong>이 나섭니다.
+        <div class="card-div"></div>
+        예선전부터 현지 관중들의 뜨거운 응원이 이어졌으며, 탁구에 대한 미국 내 관심이 2028 올림픽을 앞두고 빠르게 높아지고 있다는 분석입니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag tag-navy">국제 대회</div>
+      <div class="card-date">2026.06.28~07.04</div>
+      <div class="card-title">태국 방콕 ITTF-ATTU 아시아 유스챔피언십 개막 — 한국 유망주 출전</div>
+      <div class="card-body">
+        6월 28일부터 7월 4일까지 태국 방콕에서 <strong>ITTF-ATTU 아시아 유스 탁구선수권대회</strong>가 열립니다. 아시아 각국의 만 18세 이하 유망주들이 참가하는 이 대회는 미래 한국 탁구를 이끌 선수들의 등용문 역할을 합니다.
+        <div class="card-div"></div>
+        세계 탁구 강국 중국·일본·한국의 유스 세대 간 경쟁이 어떻게 펼쳐질지 주목됩니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag tag-gray">대회 일정</div>
+      <div class="card-date">2026.07 예정</div>
+      <div class="card-title">7월 대회 미리 보기 — 브라질 스타 콘텐더·요코하마 챔피언스 대기 중</div>
+      <div class="card-body">
+        미국 스매시 이후 7월에도 국제 대회 일정이 빽빽합니다. <strong>7월 21~26일 WTT 스타 콘텐더 브라질</strong>(개최지 확정 예정)과 <strong>8월 4~9일 WTT 챔피언스 요코하마(일본)</strong>가 차례로 대기하고 있습니다.
+        <div class="card-div"></div>
+        아시안게임(9.20) 전 마지막 국제 대회인 요코하마 챔피언스는 대표팀의 최종 컨디션 점검 무대가 될 전망입니다. 한 달 남짓한 사이에 굵직한 대회들이 연속으로 이어집니다.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 3장: 기술 용어 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-num">3</div>
+      <div class="sec-title">기술 용어 연재</div>
+      <div class="sec-icon">📖</div>
+    </div>
+
+    <div class="series-badge">📚 연재 순서: 기초→중급→심화→고급→멘탈→용품 | 이번 주: 기초⑥ 포핸드 스트로크</div>
+
+    <div class="tech-box">
+      <div class="tech-term">포핸드 스트로크</div>
+      <div class="tech-eng">Forehand Stroke · 기초편 ⑥</div>
+      <div class="tech-body">
+        <strong style="color:var(--gold)">포핸드 스트로크(Forehand Stroke)</strong>는 라켓을 쥔 손 쪽으로 오는 공을 앞으로 쓸어치는 기술입니다. 탁구에서 가장 기본이 되는 공격 기술이며, 이것만 제대로 익혀도 랠리 유지 능력이 크게 달라집니다.<br><br>
+        <strong style="color:#fff">① 준비 자세</strong> — 오른발을 살짝 뒤로 빼고, 라켓을 몸 오른쪽 허리 옆에 가져다 놓습니다. 팔꿈치는 자연스럽게 구부린 채 몸 가까이 둡니다.<br><br>
+        <strong style="color:#fff">② 백스윙</strong> — 허리를 오른쪽으로 살짝 돌리면서 라켓을 뒤로 당깁니다. 이때 팔만 당기는 게 아니라 허리 회전이 함께 이루어져야 합니다.<br><br>
+        <strong style="color:#fff">③ 임팩트</strong> — 허리를 왼쪽으로 돌리는 힘으로 라켓을 앞으로 쓸어냅니다. 공이 라켓에 닿는 순간 손목을 살짝 스냅 주면 공에 상회전이 걸립니다.<br><br>
+        <strong style="color:#fff">④ 팔로스루</strong> — 라켓이 이마 방향을 향할 때까지 끝까지 스윙합니다. 중간에 멈추면 공의 방향과 회전이 흔들립니다.
+        <div class="tech-tip">
+          <strong>핵심 포인트</strong><br>
+          · "팔이 아니라 허리로 친다"는 감각이 포핸드의 핵심입니다.<br>
+          · 공을 치고 나서 팔로스루를 끝까지 해야 방향이 안정됩니다.<br>
+          · 처음에는 빠르게 치려 하지 말고, 천천히 허리 회전과 스윙 궤도를 몸에 익히세요.
+        </div>
+      </div>
+    </div>
+
+
+    <div class="hl">
+      <strong>💡 파닥 TIP:</strong> 점심 탁구에서 가장 많이 쓰이는 기술이 바로 이 포핸드 스트로크입니다. "왜 자꾸 네트에 걸리지?" 싶을 때는 팔로스루가 짧은 건 아닌지 확인해 보세요. 스윙을 끝까지 다 하면 공이 훨씬 안정적으로 넘어갑니다.<br><br>
+      다음 주 <strong>Vol.07</strong>은 <strong>기초⑦ 백핸드 스트로크(Backhand Stroke)</strong>를 다룹니다!
+    </div>
+  </div>
+
+  <!-- 4장: 주요 일정 -->
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-num">4</div>
+      <div class="sec-title">이번 주 탁구 주요 일정</div>
+      <div class="sec-period">2026.06.29 (월) ~ 07.05 (일)</div>
+    </div>
+
+    <div class="week-label">📅 이번 주 (6월 29일 ~ 7월 5일)</div>
+
+    <div class="sch-grid">
+
+      <!-- 평일 점심 친목 탁구 (상시) -->
+      <div class="sch-item special">
+        <div class="sch-date">
+          <div class="sch-month">상시</div>
+          <div class="sch-day">평일</div>
+          <div class="sch-dow">점심</div>
+        </div>
+        <div>
+          <div class="sch-name">🏓 평일 점심시간 친목 탁구 (상시)</div>
+          <div class="sch-info">📍 2층 강당 / 매 평일 점심시간 운영<br>개인 레슨 희망 시 오상전·김병일 코치에게 문의</div>
+        </div>
+      </div>
+
+      <!-- WTT 미국 스매시 본선 진행 중 -->
+      <div class="sch-item intl">
+        <div class="sch-date">
+          <div class="sch-month">JUN</div>
+          <div class="sch-day">29</div>
+          <div class="sch-dow">월~</div>
+        </div>
+        <div>
+          <div class="sch-name">🌍 WTT 미국 스매시 2026 — 본선 진행 중</div>
+          <div class="sch-info">~7.5(일) / 미국 캘리포니아 온타리오 컨벤션센터<br>그랜드 스매시 등급 / 2028 LA 올림픽 테스트 이벤트<br>7.3(금) 혼합복식 결승 · 7.5(일) 단식 결승</div>
+        </div>
+      </div>
+
+      <!-- 아시아 유스챔피언십 방콕 -->
+      <div class="sch-item intl">
+        <div class="sch-date">
+          <div class="sch-month">JUL</div>
+          <div class="sch-day">04</div>
+          <div class="sch-dow">토~</div>
+        </div>
+        <div>
+          <div class="sch-name">🌏 ITTF-ATTU 아시아 유스 탁구선수권</div>
+          <div class="sch-info">6.28~7.4 / 태국 방콕 / 만 18세 이하 유망주 대회<br>한국 유스 대표팀 출전</div>
+        </div>
+      </div>
+
+      <!-- 파주지사 탁우회 모임 예고 -->
+      <div class="sch-item special">
+        <div class="sch-date">
+          <div class="sch-month">JUL</div>
+          <div class="sch-day">14</div>
+          <div class="sch-dow">화</div>
+        </div>
+        <div>
+          <div class="sch-name">🎉 파주지사 탁우회 2026 상반기 모임 (D-15)</div>
+          <div class="sch-info">📅 2026.7.14(화) / 📍 2층 강당<br>행사 세부 계획은 추후 공지 예정</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hl">📋 <strong>다음 주 예고:</strong> WTT 미국 스매시 최종 결과 / Vol.07 기술 용어 — 기초⑦ 백핸드 스트로크(Backhand Stroke) 특집</div>
+  </div>
+
+</div><!-- /.body -->
+
+<!-- ===== 푸터 ===== -->
+<div class="footer">
+  <div>
+    <div class="footer-logo">🏓 파닥파닥</div>
+    <div class="footer-sub">한전 파주지사 탁구동호회</div>
+  </div>
+  <div class="footer-info">
+    주간 탁구 뉴스레터 Vol.06<br>
+    취재 기간: 2026.06.22 ~ 06.28<br>
+    발행일: 2026.06.29 (월)
+  </div>
+</div>
+
+</div><!-- /.page -->
+</body>
+</html>
